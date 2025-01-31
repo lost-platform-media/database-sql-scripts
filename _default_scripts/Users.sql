@@ -1,5 +1,8 @@
 CREATE TABLE Users (
     UserId INT IDENTITY(1000,1) PRIMARY KEY,
+    UserGuid UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
+    LoginName NVARCHAR(100) UNIQUE NOT NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
     FirstName NVARCHAR(100) NOT NULL,
     MiddleName NVARCHAR(100) NULL,
     LastName NVARCHAR(100) NOT NULL,
@@ -10,9 +13,5 @@ CREATE TABLE Users (
     UserCreated INT NOT NULL,
     UserModified INT NULL,
     DateCreated DATETIME NOT NULL DEFAULT GETDATE(),
-    DateModified DATETIME NULL,
-    
-    FOREIGN KEY (RoleId) REFERENCES Roles(RoleId),
-    FOREIGN KEY (UserCreated) REFERENCES Users(UserId),
-    FOREIGN KEY (UserModified) REFERENCES Users(UserId)
+    DateModified DATETIME NULL
 );
